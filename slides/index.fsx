@@ -792,6 +792,7 @@ Check.Quick revRevIsOrig
 * [F# Software Foundation](http://fsharp.org/)
 * [F# for Fun and Profit](http://fsharpforfunandprofit.com/)
 * [Community for F#](http://c4fsharp.net/)
+* [FSharp.tv](https://fsharp.tv/)
 
 ***
 
