@@ -32,7 +32,8 @@
 * What is F#?
 * Why Learn FP?
 * Code!
-* How do you get started?
+* How do you learn more?
+* Questions
 
 ***
 
@@ -781,8 +782,8 @@ Check.Quick revRevIsOrig
 
 ## Property-based Testing
 
-* **JavaScript** [JsVerify](http://jsverify.github.io/)
-* **Ruby** [Rantly](https://www.sitepoint.com/the-how-and-why-of-property-based-testing-in-ruby/)
+* [JsVerify](http://jsverify.github.io/) (JavaScript)
+* [Rantly](https://www.sitepoint.com/the-how-and-why-of-property-based-testing-in-ruby/) (Ruby)
 
 ***
 
