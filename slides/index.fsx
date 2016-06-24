@@ -147,19 +147,80 @@
 
 # Why Learn FP?
 
-* Think mathematically
-* Easy to test
-* Improve correctness
-* Separate structure and behavior
-* Enhance reusability
+***
+
+## Think Mathematically
+
+' A lot of people don't like math, but programming is built on
+' top of math: proofs and theorems, to be exact. Our languages
+' offer many, powerful options to avoid the math and improve
+' performance. However, you can always find ways to increase
+' performance after you make sure your program is correct.
+' React is a great example of where some notions of performance
+' proved incorrect. Immutability and pure functions increase
+' React application performance, contrary to what prior experience
+' may have indicated. Even React's use of a virtual DOM seems
+' like a lot of overhead but is still, in many cases, faster than
+' other approaches.
 
 ***
+
+## Small units of work
+
+* Clear, concise, small
+* Functions
+* Types / Data Structures
+
+' Keep things small. Make them concise and clear. Use lots of little
+' functions and types, at least at first. You can always refactor later
+' if you find you need to increase performance here or there.
+' Small isn't everything, however ...
+
+***
+
+## Pure Functions
+
+* Easy to test
+* Improve correctness
+* Easy to compose
+
+' Pure functions are like addition, multiplication, map, reduce, etc.
+' You don't need to set up heavy test harnesses and can instead
+' pass test data in and know the correct answers. For complicated
+' functions, break them up into smaller bits and compose them
+' together. Try to keep your functions to within 7 lines or less.
+' That isn't a hard rule, but you will find it really helps you.
+
+***
+
+## Interact at Boundaries
+
+* Define clear boundaries for I/O
+* Load data or return results at boundaries
+* Modules for behavior (shared)
+* Modules for features (specific)
+
+' By thinking about clear boundaries, you free yourself
+' to focus on small tasks at a time, which are much
+' simpler to build, and you thus increase your speed or
+' at least give yourself more time to think through and
+' understand your problem.
+
+*** 
 
 > I think the lack of reusability comes in object-oriented languages, not functional languages. Because the problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle.
 >
 > If you have referentially transparent code, if you have pure functions — all the data comes in its input arguments and everything goes out and leave no state behind — it’s incredibly reusable.
 
 <cite>Joe Armstrong, Source: Coders at Work.</cite>
+
+***
+
+## UI Frameworks Moving to FP
+
+* [React + Redux](http://redux.js.org/docs/basics/UsageWithReact.html)
+* [Cycle.js](http://cycle.js.org/)
+* [Elm](http://guide.elm-lang.org/architecture/index.html)
 
 ***
 
@@ -221,6 +282,80 @@ let arr = [|1;2;3|]
 ' let bindings allow you declare values. These are not assignment operations.
 ' You can re-bind these just like let in ES2015.
 
+---
+
+## Functions
+
+*)
+
+let list2 (x, y) = [x; y]
+(*** define-output: list2 ***)
+printfn "%A" (list2 ("a", "b"))
+(*** include-output: list2 ***)
+
+let add x y = x + y
+(*** define-output: add ***)
+printfn "%i" (add 1 2)
+(*** include-output: add ***)
+
+let multiply x y = x + y
+(*** define-output: multiply ***)
+printfn "%i" (multiply 6 5)
+(*** include-output: multiply ***)
+
+(**
+
+' Functions are also defined with let bindings.
+' Notice that the first takes a tupled argument,
+' much like JavaScript methods, while the others
+' take separate arguments. Look at the type signatures.
+
+---
+
+## Partial Application
+
+*)
+
+let add1 x = add 1 x
+(*** define-output: add1 ***)
+printfn "%i" (add1 2)
+(*** include-output: add1 ***)
+
+let createAndInvoke (ctor:char[]) args =
+    let str:string = System.String(ctor)
+    str.Split([|args|])
+let str = createAndInvoke [|'a';' ';'b';' ';'c'|]
+(*** define-value: resultArr ***)
+printfn "%A" (str ' ')
+(*** include-value: resultArr ***)
+
+(**
+
+' Functions in F# are curried by default. That means the
+' arguments may be passed in one at a time.
+' In the second example, you can see how a curried function
+' can work the same as a class constructor with a single method
+' that takes another set of parameters.
+
+---
+
+## Composition
+
+*)
+
+let double x = multiply 2 x
+let square x = multiply x x
+(*** define-output: compose1 ***)
+printfn "%i" (square (double 4))
+(*** include-output: compose1 ***)
+
+let doubleThenSquare = double >> square
+(*** define-output: compose2 ***)
+printfn "%i" (doubleThenSquare 4)
+(*** include-output: compose2 ***)
+
+(**
+
 ***
 
 ## Modules
@@ -278,6 +413,17 @@ type Pet(name) =
     member this.Name = name
     override this.ToString() =
         this.Name
+
+(**
+
+---
+
+## Functions (Aliases)
+
+*)
+
+type Flip<'a, 'b, 'c> =
+    ('a -> 'b -> 'c) -> ('b -> 'a -> 'c)
 
 (**
 
